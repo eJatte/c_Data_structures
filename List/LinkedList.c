@@ -2,6 +2,8 @@
  * =============================================================================
  * Name: LinkedList.c
  * Author: github.com/eJatte
+ * Created: 2018-10-18
+ * Last modified: 2018-10-18
  * Description: Implementation for a LinkedList. User is responsible for setting
  *              free function for values that are stored. Which is used when
  *              freeing the list.
