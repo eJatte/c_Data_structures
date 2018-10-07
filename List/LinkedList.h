@@ -1,7 +1,7 @@
 /*
  * =============================================================================
  * Name: LinkedList.h
- * Author: github.com/ejatte
+ * Author: github.com/eJatte
  * Description: Interface for a LinkedList. User is responsible for setting
  *              free function for values that are stored. Which is used when
  *              freeing the list.
