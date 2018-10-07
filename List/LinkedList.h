@@ -1,3 +1,13 @@
+/*
+ * =============================================================================
+ * Name: LinkedList.h
+ * Author: github.com/ejatte
+ * Description: Interface for a LinkedList. User is responsible for setting
+ *              free function for values that are stored. Which is used when
+ *              freeing the list.
+ * =============================================================================
+ * */
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -31,18 +41,17 @@ typedef struct LinkedList{
 LinkedList* LinkedList_empty(void (*free_function)(void*));
 
 /*
-* Function:     LinkedList_insert
+* Function:     LinkedList_size
 *
-* Description:  Inserts <value> immediately before the given element.
+* Description:  Returns the number of elements in the list,
+*               excluding head and tail.
 *
-* Input:        Element *element - the element position to insert before.
-*               void *value - the value to insert into the list.
+* Input:        LinkedList *linkedList - the LinkedList to check.
 *
-* Return:       Element* - pointer to the newly inserted Element.
-*               NULL - if <element> is the head of the list or
-*                      on other failure
+* Return:       int - number of elements.
+*               -1 if input is NULL
 */
-Element* LinkedList_insert(Element *element, void *value);
+int LinkedList_size(LinkedList *linkedList);
 
 /*
 * Function:     LinkedList_isEmpty
@@ -52,20 +61,72 @@ Element* LinkedList_insert(Element *element, void *value);
 * Input:        LinkedList *linkedList - the LinkedList to check.
 *
 * Return:       int - boolean stating whether it is empty or not.
+*               -1 if input is NULL
 */
 int LinkedList_isEmpty(LinkedList *linkedList);
 
 /*
-* Function:     LinkedList_size
+* Function:     LinkedList_next
 *
-* Description:  Returns the number of elements in the list,
-*               excluding head and tail.
+* Description:  Returns the element after the input element.
 *
-* Input:        LinkedList *linkedList - the LinkedList to check.
+* Input:        Element *element - the element.
 *
-* Return:       int - number of elements.
+* Return:       Element* - the element after the input element.
+*               NULL - if the is no such element.
 */
-int LinkedList_size(LinkedList *linkedList);
+Element* LinkedList_next(Element *element);
+
+/*
+* Function:     LinkedList_previous
+*
+* Description:  Returns the element before the input element.
+*
+* Input:        Element *element - the element.
+*
+* Return:       Element* - the element before the input element.
+*               NULL - if the is no such element.
+*/
+Element* LinkedList_previous(Element *element);
+
+/*
+* Function:     LinkedList_first
+*
+* Description:  Returns the first element in the list.
+*
+* Input:        LinkedList *linkedList - the list.
+*
+* Return:       Element* - the element.
+*/
+Element* LinkedList_first(LinkedList *linkedList);
+
+/*
+* Function:     LinkedList_end
+*
+* Description:  Returns the tail of the list. The tail has no value.
+*
+* Input:        LinkedList *linkedList - the list.
+*
+* Return:       Element* - the element.
+*/
+Element* LinkedList_end(LinkedList *linkedList);
+
+/*
+* Function:     LinkedList_insert
+*
+* Description:  Inserts <value> immediately before the given element.
+*
+* Input:        LinkedList *linkedList - the list.
+*               Element *element - the element position to insert before.
+*               void *value - the value to insert into the list.
+*
+* Return:       Element* - pointer to the newly inserted Element.
+*               NULL - if <element> is the head of the list or
+*                      on other failure
+*/
+Element* LinkedList_insert( LinkedList *linkedList,
+                            Element *element,
+                            void *value);
 
 /*
 * Function:     LinkedList_inspect
@@ -94,52 +155,6 @@ void* LinkedList_inspect(Element *element);
 void* LinkedList_extract(LinkedList *linkedList, Element *element);
 
 /*
-* Function:     LinkedList_first
-*
-* Description:  Returns the first element in the list.
-*
-* Input:        LinkedList *linkedList - the list.
-*
-* Return:       Element* - the element.
-*/
-Element* LinkedList_first(LinkedList *linkedList);
-
-/*
-* Function:     LinkedList_end
-*
-* Description:  Returns the tail of the list. The tail has no value.
-*
-* Input:        LinkedList *linkedList - the list.
-*
-* Return:       Element* - the element.
-*/
-Element* LinkedList_end(LinkedList *linkedList);
-
-/*
-* Function:     LinkedList_next
-*
-* Description:  Returns the element after the input element.
-*
-* Input:        Element *element - the element.
-*
-* Return:       Element* - the element after the input element.
-*               NULL - if the is no such element.
-*/
-Element* LinkedList_next(Element *element);
-
-/*
-* Function:     LinkedList_previous
-*
-* Description:  Returns the element before the input element.
-*
-* Input:        Element *element - the element.
-*
-* Return:       Element* - the element before the input element.
-*               NULL - if the is no such element.
-*/
-Element* LinkedList_previous(Element *element);
-
-/*
 * Function:     LinkedList_get
 *
 * Description:  Get element by index in list. Exluding head and tail.
@@ -147,7 +162,7 @@ Element* LinkedList_previous(Element *element);
 * Input:        LinkedList *linkedList - the list.
 *               int index - the index of the wanted element.
 *
-* Return:       Element* - the element at <index>.
+* Return:       Element* - the element at <index>. 0 for first element.
 *               NULL - if the index exceeds the list size.
 */
 Element* LinkedList_get(LinkedList *linkedList, int index);
@@ -165,3 +180,14 @@ Element* LinkedList_get(LinkedList *linkedList, int index);
 *               NULL - if the element was head or tail.
 */
 Element* LinkedList_remove(LinkedList *linkedList, Element *element);
+
+/*
+* Function:     LinkedList_free
+*
+* Description:  Free:s input list.
+*
+* Input:        LinkedList *linkedList - the list to free
+*
+* Return:       (void)
+*/
+void LinkedList_free(LinkedList *linkedList);
