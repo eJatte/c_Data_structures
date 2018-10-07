@@ -1,3 +1,13 @@
+/*
+ * =============================================================================
+ * Name: LinkedList.c
+ * Author: github.com/ejatte
+ * Description: Implementation for a LinkedList. User is responsible for setting
+ *              free function for values that are stored. Which is used when
+ *              freeing the list.
+ * =============================================================================
+ * */
+
 #include "LinkedList.h"
 
 LinkedList* LinkedList_empty(void free_function(void*)){
